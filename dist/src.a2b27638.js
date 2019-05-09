@@ -189,13 +189,144 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../public/fonts/slkscr-webfont.eot":[["slkscr-webfont.ffa4090f.eot","public/fonts/slkscr-webfont.eot"],"public/fonts/slkscr-webfont.eot"],"./../../public/fonts/slkscr-webfont.woff":[["slkscr-webfont.1e0cef22.woff","public/fonts/slkscr-webfont.woff"],"public/fonts/slkscr-webfont.woff"],"./../../public/fonts/slkscr-webfont.ttf":[["slkscr-webfont.e002edc4.ttf","public/fonts/slkscr-webfont.ttf"],"public/fonts/slkscr-webfont.ttf"],"./../../public/fonts/slkscr-webfont.svg":[["slkscr-webfont.16d40719.svg","public/fonts/slkscr-webfont.svg"],"public/fonts/slkscr-webfont.svg"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/partials/Game.js":[function(require,module,exports) {
+},{"./../../public/fonts/slkscr-webfont.eot":[["slkscr-webfont.ffa4090f.eot","public/fonts/slkscr-webfont.eot"],"public/fonts/slkscr-webfont.eot"],"./../../public/fonts/slkscr-webfont.woff":[["slkscr-webfont.1e0cef22.woff","public/fonts/slkscr-webfont.woff"],"public/fonts/slkscr-webfont.woff"],"./../../public/fonts/slkscr-webfont.ttf":[["slkscr-webfont.e002edc4.ttf","public/fonts/slkscr-webfont.ttf"],"public/fonts/slkscr-webfont.ttf"],"./../../public/fonts/slkscr-webfont.svg":[["slkscr-webfont.16d40719.svg","public/fonts/slkscr-webfont.svg"],"public/fonts/slkscr-webfont.svg"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/settings.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.KEYS = exports.BOARD_GAP = exports.PADDLE_HEIGHT = exports.PADDLE_WIDTH = exports.SVG_NS = void 0;
+var SVG_NS = "http://www.w3.org/2000/svg";
+exports.SVG_NS = SVG_NS;
+var PADDLE_WIDTH = 8,
+    PADDLE_HEIGHT = 56,
+    BOARD_GAP = 10;
+exports.BOARD_GAP = BOARD_GAP;
+exports.PADDLE_HEIGHT = PADDLE_HEIGHT;
+exports.PADDLE_WIDTH = PADDLE_WIDTH;
+var KEYS = {
+  p1up: 'a',
+  p1down: 'z',
+  p2up: 'ArrowUp',
+  p2down: 'ArrowDown',
+  pause: ' '
+};
+exports.KEYS = KEYS;
+},{}],"src/partials/Board.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _settings = require("../settings");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Board =
+/*#__PURE__*/
+function () {
+  function Board(width, height, svg) {
+    _classCallCheck(this, Board);
+
+    this.width = width;
+    this.height = height;
+  }
+
+  _createClass(Board, [{
+    key: "render",
+    value: function render(svg) {
+      var rect = document.createElementNS(_settings.SVG_NS, 'rect');
+      rect.setAttributeNS(null, 'width', this.width);
+      rect.setAttributeNS(null, 'height', this.height);
+      rect.setAttributeNS(null, 'fill', '#353535');
+      rect.setAttributeNS(null, 'x', "0");
+      rect.setAttributeNS(null, 'y', "0");
+      svg.appendChild(rect);
+      var line = document.createElementNS(_settings.SVG_NS, 'line');
+      line.setAttributeNS(null, "x1", this.width / 2);
+      line.setAttributeNS(null, "y1", 0);
+      line.setAttributeNS(null, "x2", this.width / 2);
+      line.setAttributeNS(null, "y2", this.height);
+      line.setAttributeNS(null, "stroke", "white");
+      line.setAttributeNS(null, "stroke-width", 4);
+      line.setAttributeNS(null, "stroke-dasharray", "20 15");
+      svg.appendChild(line);
+    }
+  }]);
+
+  return Board;
+}();
+
+exports.default = Board;
+},{"../settings":"src/settings.js"}],"src/partials/Paddle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _settings = require("../settings");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Paddle =
+/*#__PURE__*/
+function () {
+  function Paddle(boardHeight, paddleWidth, paddleHeight, initialX, initialY, keyUp, keyDown) {
+    _classCallCheck(this, Paddle);
+
+    this.boardHeight = boardHeight;
+    this.paddleWidth = paddleWidth;
+    this.paddleHeight = paddleHeight;
+    this.x = initialX;
+    this.y = initialY;
+    this.score = 0;
+    this.speed = _settings.SPEED;
+  }
+
+  _createClass(Paddle, [{
+    key: "render",
+    value: function render(svg) {
+      var rect = document.createElementNS(_settings.SVG_NS, 'rect');
+      rect.setAttributeNS(null, 'width', this.paddleWidth);
+      rect.setAttributeNS(null, 'height', this.paddleHeight);
+      rect.setAttributeNS(null, 'fill', 'white');
+      rect.setAttributeNS(null, "x", this.x);
+      rect.setAttributeNS(null, "y", this.y);
+      svg.appendChild(rect);
+    }
+  }]);
+
+  return Paddle;
+}();
+
+exports.default = Paddle;
+},{"../settings":"src/settings.js"}],"src/partials/Game.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _settings = require("../settings");
+
+var _Board = _interopRequireDefault(require("./Board"));
+
+var _Paddle = _interopRequireDefault(require("./Paddle"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -211,12 +342,27 @@ function () {
 
     this.element = element;
     this.width = width;
-    this.height = height; // Other code goes here...
+    this.height = height;
+    this.gameElement = document.getElementById(this.element);
+    this.board = new _Board.default(this.width, this.height);
+    var boardMid = (this.height - _settings.PADDLE_HEIGHT) / 2;
+    this.paddle1 = new _Paddle.default(this.height, _settings.PADDLE_WIDTH, _settings.PADDLE_HEIGHT, _settings.BOARD_GAP, boardMid, _settings.KEYS.p1up, _settings.KEYS.p1down);
+    var paddle2Gap = this.width - _settings.BOARD_GAP - _settings.PADDLE_WIDTH;
+    this.paddle2 = new _Paddle.default(this.height, _settings.PADDLE_WIDTH, _settings.PADDLE_HEIGHT, paddle2Gap, boardMid, _settings.KEYS.p2up, _settings.KEYS.p2down); // Other code goes here...
   }
 
   _createClass(Game, [{
     key: "render",
-    value: function render() {// More code goes here....
+    value: function render() {
+      this.gameElement.innerHTML = '';
+      var svg = document.createElementNS(_settings.SVG_NS, 'svg');
+      svg.setAttributeNS(null, "width", this.width);
+      svg.setAttributeNS(null, "height", this.height);
+      svg.setAttributeNS(null, "viewBox", "0 0 ".concat(this.width, " ").concat(this.height));
+      this.gameElement.appendChild(svg);
+      this.board.render(svg);
+      this.paddle1.render(svg);
+      this.paddle2.render(svg); // More code goes here....
     }
   }]);
 
@@ -224,7 +370,7 @@ function () {
 }();
 
 exports.default = Game;
-},{}],"src/index.js":[function(require,module,exports) {
+},{"../settings":"src/settings.js","./Board":"src/partials/Board.js","./Paddle":"src/partials/Paddle.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./styles/game.css");
@@ -268,7 +414,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59107" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52730" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
