@@ -1,3 +1,12 @@
+# PONG
+
+
+<strong>Technologies</strong><br>
+HTML<br>
+CSS<br>
+JavaScript<br>
+
+
 # Pong Game Starter
 
 A starter project for a basic pong game using SVGs.
