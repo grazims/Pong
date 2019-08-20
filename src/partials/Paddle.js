@@ -42,7 +42,7 @@ export default class Paddle {
   }
   moveDown() {
     this.y = Math.min(
-      this.boardHeight - this.paddleHeight - this.speed,
+      this.boardHeight - this.paddleHeight,
       this.y + this.speed
     );
   }
