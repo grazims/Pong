@@ -1,10 +1,11 @@
 # PONG
 
+The game consists in the rebuild of the Classic Pong Game.
 
 <strong>Technologies</strong><br>
-HTML<br>
-CSS<br>
-JavaScript<br>
+* HTML
+* CSS
+* JavaScript
 
 
 # Pong Game Starter
